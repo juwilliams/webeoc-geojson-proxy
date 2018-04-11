@@ -1,0 +1,20 @@
+{
+  "name": "webeoc-geojson-proxy",
+  "version": "1.0.0",
+  "description": "Node proxy that converts soap requests for WebEOC board data with geospatial location into geoJSON responses",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/juwilliams/webeoc-geojson-proxy"
+  },
+  "keywords": [
+    "webeoc",
+    "geojson",
+    "proxy"
+  ],
+  "author": "Justin Williams",
+  "license": "MIT"
+}
