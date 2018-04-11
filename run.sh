@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # copy over example config if not exists
-if [ ! -f ../config/config.js ]; then
-	cp ../config/example-config.js ../config/config.js
+if [ ! -f ./config/config.js ]; then
+	cp ./config/example-config.js ./config/config.js
 	echo 'example-config copied to config/config.js'
 fi
 
@@ -22,5 +22,6 @@ npm install
 NOW=$(date +"%F")
 
 # run the webserver
-#sudo node app.js
-nohup node app.js >> webeoc-geojson-proxy-$NOW.log &
+pkill -f node
+#nohup node app.js >> webeoc-geojson-proxy-$NOW.log &
+node app.js

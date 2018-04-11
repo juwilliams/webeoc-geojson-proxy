@@ -16,5 +16,9 @@
     "proxy"
   ],
   "author": "Justin Williams",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "string-format": "^1.0.0"
+  }
 }
