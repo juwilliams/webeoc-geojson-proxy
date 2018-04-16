@@ -10,6 +10,9 @@ let express					= require('express')
 
 format.extend(String.prototype);
 
+//	set appropriate variables from config on app
+app.set('services', config.services);
+
 //	configure app to correctly parse json from body
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({extended: false}));
