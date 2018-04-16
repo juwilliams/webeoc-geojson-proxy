@@ -18,5 +18,8 @@ https_server.listen(https_port, function () {
 });
 
 app.get('/status', function(req, res) {
-	res.send('server is OK');
+	res.send('server status is ONLINE');
 });
+
+//	routes
+const board					= require('./routes/board.js')(app);
