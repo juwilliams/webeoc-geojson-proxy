@@ -3,7 +3,7 @@ module.exports = function(app) {
 
 	format.extend(String.prototype);
 
-	app.get('/board/:name', function(req, res) {
+	app.post('/board/:name', function(req, res) {
 		const board_name = req.params.name;
 
 		res.send(`posting to ${board_name}`);

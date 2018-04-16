@@ -12,6 +12,7 @@ module.exports = {
 	},
 	database: 'pg://<username>:<password>@localhost:port/database_name',
 	services: {
+		webeoc_api: ''
 	},
 	urls: {
 	},
