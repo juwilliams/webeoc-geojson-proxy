@@ -3,9 +3,21 @@ module.exports = function(app) {
 
 	format.extend(String.prototype);
 
-	app.post('/board/:name/getdata', function(req, res) {
-		const board_name = req.params.name;
+	app.post('/board/getdata', function(req, res) {
+		console.log(req.body);
 
-		res.send(`posting to ${board_name}`);
+		const {
+			boardName,
+			displayViewName
+		} = req.body;
+
+		const {
+			username,
+			password,
+			position,
+			incident
+		} = req.body.credentials;
+
+		res.send(`posting to ${boardName}`);
 	});
 }
