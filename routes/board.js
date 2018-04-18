@@ -1,6 +1,6 @@
 module.exports = function(app) {
 	let format					= require('string-format')
-		, arcgisToGeoJson 		= require('@esri/arcgis-to-geojson-utils')
+		, arcgisToGeoJsonUtils 	= require('@esri/arcgis-to-geojson-utils')
 		, soap 					= require('soap')
 		, parser				= require('xml2json');
 
@@ -41,12 +41,25 @@ module.exports = function(app) {
 						return;
 					}
 
-					let json = JSON.parse(parser.toJson(soap_res.GetDataResult));
+					const parsedXmlToJson = JSON.parse(parser.toJson(soap_res.GetDataResult));
 
 					//	transform to geojson is the request indicated that
 					//	the webeoc response would contain geospatial location fields
 					if ( getGeoJson ) {
+						const features = parsedXmlToJson.data.record.map(rec => ({
+							attributes: rec,
+							spatialReference: {
+								wkid: 4326
+							},
+							geometry: {
+								x: parseFloat(rec[longitudeField]),
+								y: parseFloat(rec[latitudeField]),
+							}
+						}));
 
+						const geoJson = arcgisToGeoJsonUtils.arcgisToGeoJSON({ features });
+
+						res.send(geoJson);
 					} else {
 						res.send({ json, err });
 					}
