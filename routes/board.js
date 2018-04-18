@@ -1,6 +1,8 @@
 module.exports = function(app) {
-	let format				= require('string-format'),
-		soap				= require('soap');
+	let format					= require('string-format')
+		, arcgisToGeoJson 		= require('@esri/arcgis-to-geojson-utils')
+		, soap 					= require('soap')
+		, parser				= require('xml2json');
 
 	const { webeoc_wsdl: wsdl } = app.settings.services;
 
@@ -12,6 +14,11 @@ module.exports = function(app) {
 			boardName: BoardName,
 			displayViewName: DisplayViewName
 		} = req.body;
+
+		const { getGeoJson } = req.query;
+
+		//	fields to search for in the webeoc response which will contain geospatial location
+		const { latitudeField, longitudeField } = req.body.hasOwnProperty('translation') ? req.body.translation : {};
 
 		const {
 			username: Username,
@@ -29,9 +36,20 @@ module.exports = function(app) {
 		try {
 			soap.createClient(wsdl, function(err, client) {				
 				client.API.APISoap12.GetData(args, function(err, soap_res) {
-					const { lastRequest } = client;
-					console.log(lastRequest);
-					res.send({ soap_res, lastRequest });
+					if ( err ) {
+						res.status(500).send({ err });
+						return;
+					}
+
+					let json = JSON.parse(parser.toJson(soap_res.GetDataResult));
+
+					//	transform to geojson is the request indicated that
+					//	the webeoc response would contain geospatial location fields
+					if ( getGeoJson ) {
+
+					} else {
+						res.send({ json, err });
+					}
 				});
 			});
 		} catch (err) {

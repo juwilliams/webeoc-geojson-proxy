@@ -1,6 +1,6 @@
 module.exports = {
-	ssl_certificate: '../cert/local.cert',
-	ssl_key: '../cert/local.pem',
+	ssl_certificate: './cert/local.cert',
+	ssl_key: './cert/local.pem',
 	host: 'localhost',
 	ports: {
 		web: 8444,
