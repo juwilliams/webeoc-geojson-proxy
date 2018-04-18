@@ -61,7 +61,7 @@ module.exports = function(app) {
 
 						res.send(geoJson);
 					} else {
-						res.send({ json, err });
+						res.send({ json: parsedXmlToJson, err });
 					}
 				});
 			});
